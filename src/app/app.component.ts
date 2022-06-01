@@ -5,6 +5,7 @@ import { SystemInfo } from 'cap-systeminfo';
 import { Platform } from '@ionic/angular';
 import { ApplicationInformationService } from './services/appInfo/application-information.service';
 import { ExpertSystem } from './models/expert-system';
+import { Http, HttpResponse } from '@capacitor-community/http';
 
 declare let outputs: any; //Map<string, any>;
 declare let knowledge: any; // Map<string, any>;
@@ -20,24 +21,27 @@ export class AppComponent implements OnInit {
   constructor(private appInfo: ApplicationInformationService) { }
 
   ngOnInit(): void {
-
-    const es = new ExpertSystem();
-    const outputDefaults = new Map([['finalNumber', 0]]);
-    es.setOutputDefualts(outputDefaults);
-    es.addKnowledge('a', 4);
-    es.addKnowledge('b', 12);
-    es.addRule(() => { if (knowledge.get('b') && knowledge.get('c')) { outputs.set('finalNumber', 4); } });
-    es.addRule(() => {
-      const x = knowledge.get('a');
-      if (x === 4) {
-        addKnowledge('c', 12);
-      }
-    });
-    es.Start();
-    console.log(es.knowledge);
-    console.log(es.outputs);
-
+    this.run();
   }
+
+  async run() {
+    const tiktokurl = 'https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically&hl=en_US&gl=US';
+    const response: HttpResponse = await Http.get({ url: tiktokurl });
+    console.log(response);
+  }
+
+
+  // get info
+
+  // run app expert systems
+
+  // map app knowledge
+
+  // put map knowledge into expert systems
+
+
+
+
 
 
 
@@ -68,7 +72,7 @@ export class AppComponent implements OnInit {
     es.addRule(
       () => {
         if (knowledge.permissionCount >= 10) {
-          addKnowledge("tooManyPermissions", true);
+          addKnowledge('tooManyPermissions', true);
         }
       }
     );

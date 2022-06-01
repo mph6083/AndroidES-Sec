@@ -1,11 +1,11 @@
 [
 	{
-		"pkg": "@capacitor/app",
-		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
+		"pkg": "@capacitor-community/http",
+		"classpath": "com.getcapacitor.plugin.http.Http"
 	},
 	{
-		"pkg": "@capacitor/device",
-		"classpath": "com.capacitorjs.plugins.device.DevicePlugin"
+		"pkg": "@capacitor/app",
+		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},
 	{
 		"pkg": "@capacitor/haptics",
