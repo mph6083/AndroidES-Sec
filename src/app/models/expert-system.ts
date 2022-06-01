@@ -1,15 +1,15 @@
-export declare let outputs: Map<string, any>;
-export declare let knowledge: Map<string, any>;
-export declare function log(category: string, message: string): void;
-export declare function addKnowledge(tag: string, data: any): void;
+declare let outputs:  any; //Map<string, any>;
+declare let knowledge: any; // Map<string, any>;
+declare function log(category: string, message: string): void;
+declare function addKnowledge(tag: string, data: any): void;
 
 export class ExpertSystem {
 
-  public outputs: Map<string, any>;
-  public knowledge: Map<string, any>;
-  public logs: Map<string, Set<string>>;
-  
-  private outputDefaults: Map<string, any>;
+  public outputs: Map<string, any> = new  Map<string, any>();
+  public knowledge: Map<string, any> = new  Map<string, any>();;
+  public logs: Map<string, Set<string>> = new Map<string, Set<string>>();
+
+  private outputDefaults: Map<string, any> = new Map<string, any>();
   private rules: Array<any> = new Array();
 
   constructor() {
@@ -29,14 +29,14 @@ export class ExpertSystem {
     ruleTrimmedString.pop();
     ruleTrimmedString = ruleTrimmedString.join('}');
 
-    const newRule = (new Function('with (this) {return ' + ruleTrimmedString + '}')).bind(this);
+    const newRule = (new Function('with (this) { ' + ruleTrimmedString + '}')).bind(this);
 
     this.rules.push(newRule);
 
   }
 
-  public setOutputDefualts(outputDefaults: Map<string, any>) {
-    this.outputDefaults = outputDefaults;
+  public setOutputDefualts(outputDefaultsParam: Map<string, any>) {
+    this.outputDefaults = outputDefaultsParam;
   }
 
   public addKnowledge(tag: string, data: any): any {
@@ -54,18 +54,19 @@ export class ExpertSystem {
     let startingKnowledge;
     let endingKnowledge;
     // eslint-disable-next-line eqeqeq
-    while (startingKnowledge == endingKnowledge) {
-      startingKnowledge = JSON.stringify(this.knowledge);
-      this.outputs = this.outputDefaults;
+    do {
+      startingKnowledge = JSON.stringify(Array.from(this.knowledge.entries()));
+      this.outputs = new Map(this.outputDefaults);
 
       for (const rule of this.rules) {
         try { rule(); } catch { };
       }
 
-      endingKnowledge = JSON.stringify(this.knowledge);
+      endingKnowledge = JSON.stringify(Array.from(this.knowledge.entries()));
 
-    }
-    return outputs;
+    } while (startingKnowledge !== endingKnowledge);
+
+    return;
 
   }
 
