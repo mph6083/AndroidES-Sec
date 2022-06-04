@@ -10,8 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:android": "npm run build && ionic cap sync",
-    "build:android:open": "npm run build:android && ionic cap open android",
+    "buildopenand": "ng build && ionic cap copy && ionic cap open android",
+    "build:android": "npm run build:all && ionic cap sync",
+    "build:android:open": "npm run build:android:all && ionic cap open android",
     "build-sysinfo-plugin": "cd ./cap-systeminfo && npm run verify:cmd && cd ../ && npm install ./cap-systeminfo",
     "verify:android": "cd ./cap-systeminfo && npm run verify:cmd"
   },
@@ -32,6 +33,7 @@
     "@capacitor/status-bar": "1.0.8",
     "@ionic/angular": "^6.0.0",
     "cap-systeminfo": "file:cap-systeminfo",
+    "ngx-gauge": "^5.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

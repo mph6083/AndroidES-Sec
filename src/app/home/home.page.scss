@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 
@@ -24,4 +24,31 @@
 
 #container a {
   text-decoration: none;
+}
+
+ion-spinner{
+  transform: scale(3);
+  margin:30px;
+}
+
+#cuteLoadingMessage {
+  transition: opacity 500ms;
+}
+
+#main-section{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+#main-gauge{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  *{
+    margin: 4px;
+  }
+  ngx-gauge{
+    transform: scale(.9);
+  }
 }

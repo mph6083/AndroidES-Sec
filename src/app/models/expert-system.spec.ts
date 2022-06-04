@@ -15,8 +15,8 @@ describe('ExpertSystem', () => {
     es.setOutputDefualts(outputDefaults);
     es.addKnowledge('a', 4);
     es.addKnowledge('b', 12);
-    es.addRule(() => { if (knowledge.get('b') && knowledge.get('c')) { outputs.set('finalNumber', 4); } });
-    es.addRule(() => {
+    es.addRule('B and C exist', () => { if (knowledge.get('b') && knowledge.get('c')) { outputs.set('finalNumber', 4); } });
+    es.addRule('a = 4', () => {
       const x = knowledge.get('a');
       if (x === 4) {
         addKnowledge('c', 12);

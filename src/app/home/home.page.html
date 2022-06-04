@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Expert Secuity Evaluation
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div *ngIf="data !== undefined">
+    <div id="main-section">
+      <h1> Device Security Info</h1>
+      <div id="main-gauge">
+        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.generalScore" [label]="'Device Score'" [max]="10">
+        </ngx-gauge>
+        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.appAverageScore" [label]="'Average App Score'" [max]="10">
+        </ngx-gauge>
+      </div>
+      <hr style="width:90% !important; background-color: lightgrey;">
+      <h3>Device Notes</h3>
+      
+    </div>
+  </div>
+
+  <div id="container" *ngIf="data === undefined || data === null">
+    <ion-spinner name="bubbles" color="primary" size="300"></ion-spinner>
+    <p id="cuteLoadingMessage">{{cuteLoadingMessage}}</p>
   </div>
 </ion-content>

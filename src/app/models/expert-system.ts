@@ -17,7 +17,7 @@ export class ExpertSystem {
   }
 
 
-  public addRule(rule: any) {
+  public addRule(rulename: string, rule: any) {
     const ruleString: string = rule.toString();
     if (!(ruleString.startsWith('()') || ruleString.startsWith('function'))) {
       throw new Error('Invalid Rule Formatting');
@@ -28,9 +28,7 @@ export class ExpertSystem {
     ruleTrimmedString = ruleTrimmedString.join('{').split('}');
     ruleTrimmedString.pop();
     ruleTrimmedString = ruleTrimmedString.join('}');
-
     const newRule = (new Function('with (this) { ' + ruleTrimmedString + '}')).bind(this);
-
     this.rules.push(newRule);
 
   }
@@ -57,9 +55,10 @@ export class ExpertSystem {
     do {
       startingKnowledge = JSON.stringify(Array.from(this.knowledge.entries()));
       this.outputs = new Map(this.outputDefaults);
-
       for (const rule of this.rules) {
-        try { rule(); } catch { };
+        try {
+          rule();
+        } catch { console.log(rule);};
       }
 
       endingKnowledge = JSON.stringify(Array.from(this.knowledge.entries()));
@@ -70,11 +69,12 @@ export class ExpertSystem {
 
   }
 
-  private log(category: string, message: string) {
+  public log(category: string, message: string) {
+
     if (!this.logs.has(category)) {
       this.logs.set(category, new Set<string>());
     }
-    this.logs[category].add(message);
+    this.logs.get(category).add(message);
   }
 
 
