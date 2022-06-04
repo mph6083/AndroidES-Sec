@@ -12,14 +12,56 @@
     <div id="main-section">
       <h1> Device Security Info</h1>
       <div id="main-gauge">
-        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.generalScore" [label]="'Device Score'" [max]="10">
+        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.generalScore"
+          [label]="'Device Score'" [max]="10">
         </ngx-gauge>
-        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.appAverageScore" [label]="'Average App Score'" [max]="10">
+        <ngx-gauge [foregroundColor]="'#1565c0'" [thick]="10" [type]="'semi'" [value]="data.appAverageScore"
+          [label]="'Average App Score'" [max]="10">
         </ngx-gauge>
       </div>
       <hr style="width:90% !important; background-color: lightgrey;">
       <h3>Device Notes</h3>
-      
+      <ul>
+        <li *ngFor="let note of datanotes">{{note}}</li>
+      </ul>
+      <hr style="width:90% !important; background-color: lightgrey;">
+      <h3>App Info</h3>
+      <div id="card-holder-margin">
+        <ion-card id="info-holder">
+          <ion-list inset="true">
+            <ion-accordion-group>
+              <ion-accordion *ngFor="let app of apps" value="{{app.name}}">
+                <ion-item slot="header">
+                  <ion-label>{{app.name}}</ion-label>
+                </ion-item>
+                <ion-item slot="content">
+                  <div>
+                    <h4>Score: {{app.score}}</h4>
+                    <div id="app-notes-holder">
+                      <div *ngFor="let infoSection of app.logData" class="app-notes">
+                        <h6>{{infoSection.subject}}</h6>
+                        <ul>
+                          <li *ngFor="let data of infoSection.list">
+                            {{data}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </ion-item>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-list>
+        </ion-card>
+      </div>
+
+      <p>&copy; Matthew Hyland CSCI-630</p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
     </div>
   </div>
 

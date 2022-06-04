@@ -123,7 +123,7 @@ export class AppComponent implements OnInit {
         addKnowledge('APP_RISK', app_risk);
       }
     });
-
+PATCH_DATE* 1
     es.addRule('compute device security', () => {
       let dev_sec = 10.0;
       dev_sec -= knowledge.get('NO_RECENT_PATCH') ? 1.0 : 0;
@@ -254,7 +254,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    es.addRule('updated in the past year', () => {
+    es.addRule('ever been updated', () => {
       if (!knowledge.get('HAS_BEEN_UPDATED')) {
         addKnowledge('NO_UPDATES', true);
       }
@@ -399,27 +399,28 @@ export class AppComponent implements OnInit {
       }
     });
     es.addRule('install number degree of trust', () => {
-      if (knowledge.get('INSTALLS') >= 1000) {
+      if (knowledge.get('INSTALLS') >= 1000 && knowledge.get('INSTALLS') < 10000) {
         addKnowledge('INSTALL_TRUST_MODIFIER', .99);
+        log('installs','low install count');
       }
     });
     es.addRule('install number degree of trust', () => {
-      if (knowledge.get('INSTALLS') >= 10000) {
+      if (knowledge.get('INSTALLS') >= 10000 && knowledge.get('INSTALLS') < 100000) {
         addKnowledge('INSTALL_TRUST_MODIFIER', .87);
       }
     });
     es.addRule('install number degree of trust', () => {
-      if (knowledge.get('INSTALLS') >= 100000) {
+      if (knowledge.get('INSTALLS') >= 100000 && knowledge.get('INSTALLS') < 1000000) {
         addKnowledge('INSTALL_TRUST_MODIFIER', .97);
       }
     });
     es.addRule('install number degree of trust', () => {
-      if (knowledge.get('INSTALLS') >= 1000000) {
+      if (knowledge.get('INSTALLS') >= 1000000 && knowledge.get('INSTALLS') < 10000000) {
         addKnowledge('INSTALL_TRUST_MODIFIER', .60);
       }
     });
     es.addRule('install number degree of trust', () => {
-      if (knowledge.get('INSTALLS') >= 10000000) {
+      if (knowledge.get('INSTALLS') >= 10000000 && knowledge.get('INSTALLS') < 50000000) {
         addKnowledge('INSTALL_TRUST_MODIFIER', .4);
       }
     });
