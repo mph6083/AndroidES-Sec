@@ -39,6 +39,10 @@ export class AppComponent implements OnInit {
     console.log(this.output);
   }
 
+  /** run the general ES
+   *
+   * @param info device info
+   */
   runGeneral(info: any) {
     const GeneralES = new ExpertSystem();
     this.obtainGeneralKnowledge(info, GeneralES);
@@ -53,6 +57,12 @@ export class AppComponent implements OnInit {
     };
   }
 
+  /**
+   * obtain knowledge for the general ES
+   *
+   * @param info device info
+   * @param es Expert system object
+   */
   obtainGeneralKnowledge(info: any, es: ExpertSystem) {
     console.log(info);
     es.addKnowledge('APP_COUNT', this.app_count);
@@ -61,9 +71,6 @@ export class AppComponent implements OnInit {
     es.addKnowledge('APP_AVG_SCORE', this.security_score / (0.0 + this.app_count));
     es.addKnowledge('BRAND', info.brand);
     es.addKnowledge('ANDROID_OS_VERSION', info.release);
-    es.addKnowledge('PATCH_DATE', info.securityPatch);
-
-
   }
 
   /**
@@ -123,10 +130,9 @@ export class AppComponent implements OnInit {
         addKnowledge('APP_RISK', app_risk);
       }
     });
-PATCH_DATE* 1
+
     es.addRule('compute device security', () => {
       let dev_sec = 10.0;
-      dev_sec -= knowledge.get('NO_RECENT_PATCH') ? 1.0 : 0;
       dev_sec -= knowledge.get('VERSION_RISK') ? 1.0 : 0;
       dev_sec -= knowledge.get('UNSAFE_MANUFACTURER') ? 1.0 : 0;
       dev_sec -= (knowledge.get('TOO_MANY_MED_RISK_APPS') ? 0.5 : 0);
@@ -141,7 +147,10 @@ PATCH_DATE* 1
 
   }
 
-
+  /** run the APP evaluation ES
+   *
+   * @param info generated info
+   */
   runAppRisk(info: any) {
 
     const apps: any[] = info.apps;
@@ -173,6 +182,9 @@ PATCH_DATE* 1
     }
   }
 
+  /** obtain knowledge for the app expert system
+   *
+   */
   obtainKnowledge(app: any, es: ExpertSystem) {
     es.addKnowledge('HAS_ADS', app.adSupported);
     es.addKnowledge('NAME', app.title);
@@ -222,6 +234,9 @@ PATCH_DATE* 1
 
   }
 
+  /**
+   * add the rules for the app evaluation expert system.
+   */
   addRules(es: ExpertSystem) {
     // if app has been updated update frequency score = 10
     es.addRule('see if app has been updated', () => {
@@ -303,9 +318,6 @@ PATCH_DATE* 1
       }
     });
 
-
-
-
     es.addRule('Rating number degree of trust', () => {
       addKnowledge('RATING_COUNT_MODIFIER', 0);
       if (knowledge.get('RATING_COUNT') < 50) {
@@ -338,12 +350,6 @@ PATCH_DATE* 1
         addKnowledge('RATING_COUNT_MODIFIER', 10);
       }
     });
-
-
-
-
-
-
 
     es.addRule('', () => {
       if (knowledge.get('RATING_COUNT_MODIFIER') !== undefined && knowledge.get('RATING_SCORE') !== undefined) {

@@ -10,6 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "csci630": "npm i && npm run build && ionic cap sync && ionic cap open android",
     "buildopenand": "ng build && ionic cap copy && ionic cap open android",
     "build:android": "npm run build:all && ionic cap sync",
     "build:android:open": "npm run build:android:all && ionic cap open android",
